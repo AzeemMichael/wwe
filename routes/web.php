@@ -29,6 +29,11 @@ Route::group(['middleware' => ['auth']], function () {
         'as' => 'videos.index',
         'uses' => 'VideoController@index'
     ]);
+
+    Route::post('/videos/{id}/like', [
+        'as' => 'videos.like',
+        'uses' => 'VideoController@like'
+    ]);
 });
 
 

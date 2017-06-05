@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Video;
 //use App\Services\Flvinfo;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreVideo;
 use Illuminate\Support\Facades\DB;
@@ -55,5 +56,24 @@ class VideoController extends Controller
         ]);
 
         return redirect()->back(201)->with('success', 'File uploaded');
+    }
+
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function like(Request $request, int $id) : JsonResponse
+    {
+        /** @var Video $video */
+        $video = Video::find($id);
+
+        $video->likedByUsers()->attach($request->user()->getKey());
+
+        $video->save();
+
+        return response()->json([
+            'message' => 'Data Saved'
+        ]);
     }
 }

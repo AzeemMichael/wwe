@@ -39,4 +39,9 @@ class Video extends Model
     {
         return $this->belongsTo(Location::class);
     }
+
+    public function likedByUsers() : BelongsToMany
+    {
+        return $this->belongsToMany(User::class);
+    }
 }
