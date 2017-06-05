@@ -3,10 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Video extends Model
+class Tag extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -14,7 +13,7 @@ class Video extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'path',
+        'name',
     ];
 
     /**
@@ -25,18 +24,10 @@ class Video extends Model
     public $timestamps = false;
 
     /**
-     * Get the tags for the video.
+     * Get the video that owns the tag.
      */
-    public function tags() : BelongsToMany
+    public function videos() : BelongsToMany
     {
-        return $this->belongsToMany(Tag::class);
-    }
-
-    /**
-     * @return BelongsTo
-     */
-    public function location() : BelongsTo
-    {
-        return $this->belongsTo(Location::class);
+        return $this->belongsToMany(Video::class);
     }
 }
