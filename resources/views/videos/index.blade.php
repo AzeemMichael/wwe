@@ -1,13 +1,14 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 
 @section('title', 'List All Videos')
 
 @section('content')
+    <div class="container">
     <div class="row">
-        <div id="file-upload" class="col-lg-12">
+        <div id="file-upload" class="col-md-12">
             <table class="table table-hover">
-                <thead class="thead-inverse">
+                <thead>
                 <tr>
                     <th>#</th>
                     <th>Title</th>
@@ -34,6 +35,7 @@
             </table>
             {{ $videos->links() }}
         </div>
+    </div>
     </div>
 @endsection
 

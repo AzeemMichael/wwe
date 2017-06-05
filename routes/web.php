@@ -10,18 +10,26 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
 
-Route::get('/videos/create', [
-    'as' => 'videos.create',
-    'uses' => 'VideoController@create'
-]);
+Route::get('/', 'HomeController@index')->name('home');
 
-Route::post('/videos', [
-    'as' => 'videos.store',
-    'uses' => 'VideoController@store'
-]);
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/videos/create', [
+        'as' => 'videos.create',
+        'uses' => 'VideoController@create'
+    ]);
 
-Route::get('/videos', [
-    'as' => 'videos.index',
-    'uses' => 'VideoController@index'
-]);
+    Route::post('/videos', [
+        'as' => 'videos.store',
+        'uses' => 'VideoController@store'
+    ]);
+
+    Route::get('/videos', [
+        'as' => 'videos.index',
+        'uses' => 'VideoController@index'
+    ]);
+});
+
+
+
