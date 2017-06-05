@@ -40,6 +40,13 @@
                         ]))
                         <a class="like-btn" href="{{ route('videos.like', ['id' => $video->id]) }}">Like</a>
                         @endif
+                        @if (in_array(auth()->user()->role->name, [
+                            'ROLE_ADMIN',
+                            'ROLE_EDIT',
+                            'ROLE_READ'
+                        ]))
+                        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#exampleModal" data-link="{{ asset("storage/{$video->path}") }}">Play</button>
+                        @endif
                     </td>
                 </tr>
                 @endforeach
@@ -49,6 +56,28 @@
             {{ $videos->links() }}
         </div>
     </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">New message</h4>
+                </div>
+                <div class="modal-body">
+                    <video width="320" height="240" controls>
+                        <source src="" type="video/mp4">
+                        <source src="" type="video/ogg">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 
@@ -74,6 +103,15 @@
                 }
             });
         });
+
+        $('#exampleModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Button that triggered the modal
+            var link = button.data('link') // Extract info from data-* attributes
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+            var modal = $(this)
+            modal.find('.modal-body source').attr('src', link);
+        })
     });
 </script>
 @endpush
