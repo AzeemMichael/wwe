@@ -20,3 +20,8 @@ Route::post('/videos', [
     'as' => 'videos.store',
     'uses' => 'VideoController@store'
 ]);
+
+Route::get('/videos', [
+    'as' => 'videos.index',
+    'uses' => 'VideoController@index'
+]);

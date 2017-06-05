@@ -3,11 +3,31 @@
 namespace App\Http\Controllers;
 
 use App\Models\Video;
+//use App\Services\Flvinfo;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreVideo;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class VideoController extends Controller
 {
+
+    public function index(Request $request)
+    {
+        $videos = DB::table('videos')->paginate(15);
+
+        foreach ($videos as $video) {
+//            $flvinfo = new Flvinfo();
+//            $info = $flvinfo->getInfo(asset("storage/{$video->path}"),true);
+
+            $video->duration = $info['duration'] ?? 'na';
+            $video->size = Storage::size($video->path);
+            $video->format = Storage::getMimeType($video->path);
+            $video->bitRate = $info['video']['bitrate'] ?? 'na';
+        }
+
+        return view('videos.index', ['videos' => $videos]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -27,10 +47,6 @@ class VideoController extends Controller
      */
     public function store(StoreVideo $request)
     {
-//        if ($request->file('video')->getMimeType() !== 'video/x-m4v') {
-//            return redirect()->back()->with('error', ['Unsupported file type given']);
-//        }
-
         $path = $request->file('video')->store('videos');
 
         Video::create([
