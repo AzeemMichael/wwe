@@ -11,6 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/videos/create', [
+    'as' => 'videos.create',
+    'uses' => 'VideoController@create'
+]);
+
+Route::post('/videos', [
+    'as' => 'videos.store',
+    'uses' => 'VideoController@store'
+]);
