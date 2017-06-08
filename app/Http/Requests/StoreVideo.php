@@ -25,17 +25,7 @@ class StoreVideo extends FormRequest
     {
         return [
             'title' => 'required',
-            'video' => 'required|mp4'
-        ];
-    }
-
-    /**
-     * @return $this
-     */
-    public function messages()
-    {
-        return [
-            'mp4' => 'The video is not in mp4 format.'
+            'video' => 'required|mimetypes:video/x-m4v'
         ];
     }
 }

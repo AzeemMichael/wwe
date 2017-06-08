@@ -17,10 +17,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Validator::extend('mp4', function ($attribute, $value, $parameters, $validator) {
-            return $value->getMimeType() === 'video/x-m4v';
-        });
-
         User::observe(UserObserver::class);
     }
 
