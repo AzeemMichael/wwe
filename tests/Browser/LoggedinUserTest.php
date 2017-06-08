@@ -59,4 +59,16 @@ class LoggedinUserTest extends DuskTestCase
             $this->assertTrue(Storage::exists($video->path));
         });
     }
+
+    public function testUnauthorizedUpload()
+    {
+        $user = User::hasRole('ROLE_DELETE')->first();
+        $title = str_random(20);
+
+        $this->browse(function (Browser $browser) use($title, $user) {
+            $browser->loginAs($user)
+                ->visit('/videos/create')
+                ->assertSee('This action is unauthorized.');
+        });
+    }
 }

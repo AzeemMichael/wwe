@@ -42,6 +42,18 @@ class User extends Authenticatable
     }
 
     /**
+     * @param Builder $query
+     * @param string $role
+     * @return Builder
+     */
+    public function scopeHasRole(Builder $query, string $role) : Builder
+    {
+        return $query->whereHas('role', function (Builder $q) use ($role) {
+            $q->where('name', $role);
+        });
+    }
+
+    /**
      * @return BelongsTo
      */
     public function role() : BelongsTo
