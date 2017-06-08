@@ -19,6 +19,8 @@ class VideoController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('view', new Video());
+
         $videos = DB::table('videos')->paginate(15);
 
         foreach ($videos as $video) {
@@ -41,6 +43,8 @@ class VideoController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Video::class);
+
         return view('videos.create');
     }
 
@@ -52,6 +56,8 @@ class VideoController extends Controller
      */
     public function store(StoreVideo $request)
     {
+        $this->authorize('create', Video::class);
+
         $path = $request->file('video')->store('videos');
 
         Video::create([
@@ -69,8 +75,9 @@ class VideoController extends Controller
      */
     public function like(Request $request, int $id) : JsonResponse
     {
-        /** @var Video $video */
         $video = Video::find($id);
+
+        $this->authorize('update', $video);
 
         $video->likedByUsers()->attach($request->user()->getKey());
 
