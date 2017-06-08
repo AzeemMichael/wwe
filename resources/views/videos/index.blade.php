@@ -70,7 +70,16 @@
                     <video width="320" height="240" controls>
                         <source src="" type="video/mp4">
                         <source src="" type="video/ogg">
-                        Your browser does not support the video tag.
+                        <!-- Fallback object using Flow Player -->
+                        <object type="application/x-shockwave-flash" data="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf" width="640" height="360">
+                            <param name="movie" value="http://releases.flowplayer.org/swf/flowplayer-3.2.1.swf" />
+                            <param name="allowFullScreen" value="true" />
+                            <param name="wmode" value="transparent" />
+                            <param name="flashVars" value="config={'playlist':[ 'linktoposter.jpg',{'url':'linktomovie.mp4','autoPlay':false}]}" />
+                            <img alt="My Movie" src="linktoposter.jpg" width="640" height="360" title="No video playback capabilities, please download the video below." />
+                        </object>
+                        <!-- Fallback Text -->
+                        Your browser does not appear to support a browser. Please download the video below.
                     </video>
                 </div>
                 <div class="modal-footer">

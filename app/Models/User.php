@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Notifications\Notifiable;
@@ -28,6 +29,17 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeAdminUser(Builder $query) : Builder
+    {
+        return $query->whereHas('role', function (Builder $q) {
+            $q->where('name', 'ROLE_ADMIN');
+        });
+    }
 
     /**
      * @return BelongsTo

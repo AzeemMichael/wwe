@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Storage;
 class VideoController extends Controller
 {
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(Request $request)
     {
         $videos = DB::table('videos')->paginate(15);
@@ -33,7 +37,7 @@ class VideoController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
@@ -43,8 +47,8 @@ class VideoController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  StoreVideo  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreVideo $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(StoreVideo $request)
     {
