@@ -34,6 +34,11 @@ Route::group(['middleware' => ['auth']], function () {
         'as' => 'videos.like',
         'uses' => 'VideoController@like'
     ]);
+
+    Route::get('/users', [
+        'as' => 'users.index',
+        'uses' => 'UserController@index'
+    ]);
 });
 
 

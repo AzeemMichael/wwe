@@ -23,6 +23,13 @@
                             @endcan
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-xs-6 col-md-3">
+                            <a href="{{ route('users.index') }}" class="thumbnail">
+                                <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> List Users
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
